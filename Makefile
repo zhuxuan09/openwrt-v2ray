@@ -7,11 +7,12 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=v2ray-core
+PKG_NAME:=v2ray
 PKG_VERSION:=4.21.3
 PKG_RELEASE:=1
+PKG_BUILD_DIR:=$(BUILD_DIR)/v2ray-core-$(PKG_VERSION)
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+PKG_SOURCE:=$(PKG_NAME)-core-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/v2ray/v2ray-core/tar.gz/v$(PKG_VERSION)?
 PKG_HASH:=2052ea02ec5569b32748e5c859dcd066fa3818d5caafa70ddaf216576aaec188
 
@@ -60,7 +61,7 @@ GO_PKG_LDFLAGS:=-s -w
 include $(INCLUDE_DIR)/package.mk
 include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk
 
-define Package/v2ray-core
+define Package/v2ray
   TITLE:=A platform for building proxies
   URL:=https://www.v2ray.com
   SECTION:=net
@@ -69,11 +70,11 @@ define Package/v2ray-core
   DEPENDS:=$(GO_ARCH_DEPENDS) +ca-bundle
 endef
 
-define Package/v2ray-core/config
+define Package/v2ray/config
 	source "$(SOURCE)/Config.in"
 endef
 
-define Package/v2ray-core/description
+define Package/v2ray/description
 Project V is a set of network tools that help you to build your own computer network.
 It secures your network connections and thus protects your privacy.
 
@@ -278,15 +279,15 @@ endif
 endif
 endef
 
-define Package/v2ray-core/install
+define Package/v2ray/install
 	$(call GoPackage/Package/Install/Bin,$(PKG_INSTALL_DIR))
 
-	$(INSTALL_DIR) $(1)/usr/bin
+	$(INSTALL_DIR) $(1)/usr/bin/v2ray
 
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/v2ray $(1)/usr/bin
+	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ray $(1)/usr/bin/v2ray
 
 ifneq ($(CONFIG_V2RAY_EXCLUDE_V2CTL),y)
-	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/bin/v2ctl $(1)/usr/bin
+	$(INSTALL_BIN) $(GO_PKG_BUILD_BIN_DIR)/v2ctl $(1)/usr/bin/v2ray
 endif
 
 ifneq ($(CONFIG_V2RAY_EXCLUDE_ASSETS),y)
@@ -301,5 +302,5 @@ $(eval $(call Download,geoip.dat))
 $(eval $(call Download,geosite.dat))
 endif
 
-$(eval $(call GoBinPackage,v2ray-core))
-$(eval $(call BuildPackage,v2ray-core))
+$(eval $(call GoBinPackage,v2ray))
+$(eval $(call BuildPackage,v2ray))

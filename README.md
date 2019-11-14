@@ -6,6 +6,8 @@
 
 直接替换 `package/lean/v2ray`
 
+(仅适用于 [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede) 及自行添加 `luci-app-ssr-plus` 的 OpenWrt 固件)
+
 ### 修改点:
 
 - 兼容 `luci-app-ssr-plus` :

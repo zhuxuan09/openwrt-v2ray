@@ -1,6 +1,6 @@
 # openwrt-v2ray
 
-基于[kuoruan/openwrt-v2ray](https://github.com/kuoruan/openwrt-v2ray), 兼容 `luci-app-ssr-plus` 的 V2ray for Openwrt 软件包.
+基于[kuoruan/openwrt-v2ray](https://github.com/kuoruan/openwrt-v2ray), 兼容 `luci-app-ssr-plus` 的 v2ray 软件包.
 
 ## 使用方法:
 
